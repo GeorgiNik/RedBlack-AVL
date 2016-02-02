@@ -7,13 +7,13 @@
 
     public class AvlNodeEnumerator<TKey, TValue> : IEnumerator<TValue>
     {
+        private readonly AvlNode<TKey, TValue> root;
+
         private Action action;
 
         private AvlNode<TKey, TValue> current;
 
         private AvlNode<TKey, TValue> right;
-
-        private readonly AvlNode<TKey, TValue> root;
 
         public AvlNodeEnumerator(AvlNode<TKey, TValue> root)
         {

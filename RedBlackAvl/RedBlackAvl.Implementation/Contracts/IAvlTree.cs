@@ -4,9 +4,10 @@
 
     using RedBlackAvl.Implementation.Avl;
 
-    public interface IAvlTree<TKey,TValue>:IEnumerable<TValue>
+    public interface IAvlTree<TKey, TValue> : IEnumerable<TValue>
     {
         bool Search(TKey key, out TValue value);
+
         void Clear();
 
         void Insert(TKey key, TValue value);
@@ -15,15 +16,14 @@
 
         bool Delete(TKey key);
 
-        void DeleteBalance(AvlNode<TKey,TValue> node, int balance);
+        void DeleteBalance(AvlNode<TKey, TValue> node, int balance);
 
-        AvlNode<TKey,TValue> RotateRight(AvlNode<TKey,TValue> node);
+        AvlNode<TKey, TValue> RotateRight(AvlNode<TKey, TValue> node);
 
-        AvlNode<TKey,TValue> RotateLeftRight(AvlNode<TKey,TValue> node);
+        AvlNode<TKey, TValue> RotateLeftRight(AvlNode<TKey, TValue> node);
 
-        AvlNode<TKey,TValue> RotateRightLeft(AvlNode<TKey,TValue> node);
+        AvlNode<TKey, TValue> RotateRightLeft(AvlNode<TKey, TValue> node);
 
         AvlNode<TKey, TValue> RotateLeft(AvlNode<TKey, TValue> node);
-        
     }
 }
