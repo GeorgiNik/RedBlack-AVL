@@ -411,7 +411,62 @@
 
         public AvlNode<TKey, TValue> RotateLeftRight(AvlNode<TKey, TValue> node)
         {
-            throw new NotImplementedException();
+            var left = node.Left;
+            var leftRight = left.Right;
+            var parent = node.Parent;
+            var leftRightRight = leftRight.Right;
+            var leftRightLeft = leftRight.Left;
+
+            leftRight.Parent = parent;
+            node.Left = leftRightRight;
+            left.Right = leftRightLeft;
+            leftRight.Left = left;
+            leftRight.Right = node;
+            left.Parent = leftRight;
+            node.Parent = leftRight;
+
+            if (leftRightRight != null)
+            {
+                leftRightRight.Parent = node;
+            }
+
+            if (leftRightLeft != null)
+            {
+                leftRightLeft.Parent = left;
+            }
+
+            if (node == this.root)
+            {
+                this.root = leftRight;
+            }
+            else if (parent.Left == node)
+            {
+                parent.Left = leftRight;
+            }
+            else
+            {
+                parent.Right = leftRight;
+            }
+
+            if (leftRight.Balance == -1)
+            {
+                node.Balance = 0;
+                left.Balance = 1;
+            }
+            else if (leftRight.Balance == 0)
+            {
+                node.Balance = 0;
+                left.Balance = 0;
+            }
+            else
+            {
+                node.Balance = -1;
+                left.Balance = 0;
+            }
+
+            leftRight.Balance = 0;
+
+            return leftRight;
         }
 
         public AvlNode<TKey, TValue> RotateRightLeft(AvlNode<TKey, TValue> node)
