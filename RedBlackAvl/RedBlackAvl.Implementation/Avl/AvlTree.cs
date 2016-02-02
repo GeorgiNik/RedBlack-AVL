@@ -118,7 +118,50 @@
 
         public void InsertBalance(AvlNode<TKey, TValue> node, int balance)
         {
-            throw new NotImplementedException();
+            while (node != null)
+            {
+                balance = (node.Balance += balance);
+
+                if (balance == 0)
+                {
+                    return;
+                }
+                if (balance == 2)
+                {
+                    if (node.Left.Balance == 1)
+                    {
+                        this.RotateRight(node);
+                    }
+                    else
+                    {
+                        this.RotateLeftRight(node);
+                    }
+
+                    return;
+                }
+                if (balance == -2)
+                {
+                    if (node.Right.Balance == -1)
+                    {
+                        this.RotateLeft(node);
+                    }
+                    else
+                    {
+                        this.RotateRightLeft(node);
+                    }
+
+                    return;
+                }
+
+                var parent = node.Parent;
+
+                if (parent != null)
+                {
+                    balance = parent.Left == node ? 1 : -1;
+                }
+
+                node = parent;
+            }
         }
 
         public bool Delete(TKey key)
@@ -142,6 +185,11 @@
         }
 
         public AvlNode<TKey, TValue> RotateRightLeft(AvlNode<TKey, TValue> node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AvlNode<TKey, TValue> RotateLeft(AvlNode<TKey, TValue> node)
         {
             throw new NotImplementedException();
         }

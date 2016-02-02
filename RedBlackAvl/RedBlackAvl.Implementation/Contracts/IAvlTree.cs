@@ -24,6 +24,8 @@
 
         AvlNode<TKey,TValue> RotateRightLeft(AvlNode<TKey,TValue> node);
 
+        AvlNode<TKey, TValue> RotateLeft(AvlNode<TKey, TValue> node);
+
         void Replace(AvlNode<TKey,TValue> target, AvlNode<TKey,TValue> source);
     }
 }
