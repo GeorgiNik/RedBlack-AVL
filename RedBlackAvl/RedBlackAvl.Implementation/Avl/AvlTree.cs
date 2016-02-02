@@ -536,7 +536,24 @@
 
         private void Replace(AvlNode<TKey, TValue> target, AvlNode<TKey, TValue> source)
         {
-            throw new NotImplementedException();
+            var left = source.Left;
+            var right = source.Right;
+
+            target.Balance = source.Balance;
+            target.Key = source.Key;
+            target.Value = source.Value;
+            target.Left = left;
+            target.Right = right;
+
+            if (left != null)
+            {
+                left.Parent = target;
+            }
+
+            if (right != null)
+            {
+                right.Parent = target;
+            }
         }
     }
 }
