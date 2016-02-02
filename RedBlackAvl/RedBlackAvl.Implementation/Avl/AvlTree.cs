@@ -1,13 +1,14 @@
 ﻿namespace RedBlackAvl.Implementation.Avl
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
 
     using RedBlackAvl.Implementation.Contracts;
 
-    public class AvlTree<TKey, TValue> : IAvlTree<TKey,TValue>
+    public class AvlTree<TKey, TValue> : IAvlTree<TKey, TValue>
     {
-        private IComparer<TKey> comparer;
+        private readonly IComparer<TKey> comparer;
 
         private AvlNode<TKey, TValue> root;
 
@@ -33,7 +34,7 @@
 
         public bool Search(TKey key, out TValue value)
         {
-            AvlNode<TKey, TValue> node = this.root;
+            var node = this.root;
 
             while (node != null)
             {
@@ -60,47 +61,94 @@
 
         public void Insert(TKey key, TValue value)
         {
-            throw new System.NotImplementedException();
+            if (this.root == null)
+            {
+                this.root = new AvlNode<TKey, TValue> { Key = key, Value = value };
+            }
+            else
+            {
+                var node = this.root;
+
+                while (node != null)
+                {
+                    var compare = this.comparer.Compare(key, node.Key);
+
+                    if (compare < 0)
+                    {
+                        var left = node.Left;
+
+                        if (left == null)
+                        {
+                            node.Left = new AvlNode<TKey, TValue> { Key = key, Value = value, Parent = node };
+
+                            this.InsertBalance(node, 1);
+
+                            return;
+                        }
+                        node = left;
+                    }
+                    else if (compare > 0)
+                    {
+                        var right = node.Right;
+
+                        if (right == null)
+                        {
+                            node.Right = new AvlNode<TKey, TValue> { Key = key, Value = value, Parent = node };
+
+                            this.InsertBalance(node, -1);
+
+                            return;
+                        }
+                        node = right;
+                    }
+                    else
+                    {
+                        node.Value = value;
+
+                        return;
+                    }
+                }
+            }
         }
 
         public void Clear()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void InsertBalance(AvlNode<TKey, TValue> node, int balance)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public bool Delete(TKey key)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void DeleteBalance(AvlNode<TKey, TValue> node, int balance)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public AvlNode<TKey, TValue> RotateRight(AvlNode<TKey, TValue> node)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public AvlNode<TKey, TValue> RotateLeftRight(AvlNode<TKey, TValue> node)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public AvlNode<TKey, TValue> RotateRightLeft(AvlNode<TKey, TValue> node)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Replace(AvlNode<TKey, TValue> target, AvlNode<TKey, TValue> source)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
