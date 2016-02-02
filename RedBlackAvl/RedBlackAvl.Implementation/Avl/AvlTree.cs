@@ -33,7 +33,29 @@
 
         public bool Search(TKey key, out TValue value)
         {
-            throw new System.NotImplementedException();
+            AvlNode<TKey, TValue> node = this.root;
+
+            while (node != null)
+            {
+                if (this.comparer.Compare(key, node.Key) < 0)
+                {
+                    node = node.Left;
+                }
+                else if (this.comparer.Compare(key, node.Key) > 0)
+                {
+                    node = node.Right;
+                }
+                else
+                {
+                    value = node.Value;
+
+                    return true;
+                }
+            }
+
+            value = default(TValue);
+
+            return false;
         }
 
         public void Insert(TKey key, TValue value)
