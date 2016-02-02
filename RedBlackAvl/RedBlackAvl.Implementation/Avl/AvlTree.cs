@@ -3,7 +3,9 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class AvlTree<TKey, TValue> : IEnumerable<TValue>
+    using RedBlackAvl.Implementation.Contracts;
+
+    public class AvlTree<TKey, TValue> : IAvlTree<TKey,TValue>
     {
         private IComparer<TKey> comparer;
 
@@ -27,6 +29,56 @@
         public IEnumerator<TValue> GetEnumerator()
         {
             return new AvlNodeEnumerator<TKey, TValue>(this.root);
+        }
+
+        public bool Search(TKey key, out TValue value)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Insert(TKey key, TValue value)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Clear()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void InsertBalance(AvlNode<TKey, TValue> node, int balance)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Delete(TKey key)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteBalance(AvlNode<TKey, TValue> node, int balance)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public AvlNode<TKey, TValue> RotateRight(AvlNode<TKey, TValue> node)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public AvlNode<TKey, TValue> RotateLeftRight(AvlNode<TKey, TValue> node)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public AvlNode<TKey, TValue> RotateRightLeft(AvlNode<TKey, TValue> node)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Replace(AvlNode<TKey, TValue> target, AvlNode<TKey, TValue> source)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
