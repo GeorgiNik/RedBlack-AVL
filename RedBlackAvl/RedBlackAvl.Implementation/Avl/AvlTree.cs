@@ -10,8 +10,6 @@
     {
         private readonly IComparer<TKey> comparer;
 
-        public AvlNode<TKey, TValue> root;
-
         public AvlTree(IComparer<TKey> comparer)
         {
             this.comparer = comparer;
@@ -22,6 +20,8 @@
         {
         }
 
+        public IAvlNode<TKey, TValue> Root { get; set; }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
@@ -29,22 +29,22 @@
 
         public IEnumerator<TValue> GetEnumerator()
         {
-            return new AvlNodeEnumerator<TKey, TValue>(this.root);
+            return new AvlNodeEnumerator<TKey, TValue>((AvlNode<TKey, TValue>)this.Root);
         }
 
         public bool Search(TKey key, out TValue value)
         {
-            var node = this.root;
+            var node = this.Root;
 
             while (node != null)
             {
                 if (this.comparer.Compare(key, node.Key) < 0)
                 {
-                    node = node.Left;
+                    node = (AvlNode<TKey, TValue>)node.Left;
                 }
                 else if (this.comparer.Compare(key, node.Key) > 0)
                 {
-                    node = node.Right;
+                    node = (AvlNode<TKey, TValue>)node.Right;
                 }
                 else
                 {
@@ -61,13 +61,13 @@
 
         public void Insert(TKey key, TValue value)
         {
-            if (this.root == null)
+            if (this.Root == null)
             {
-                this.root = new AvlNode<TKey, TValue> { Key = key, Value = value };
+                this.Root = new AvlNode<TKey, TValue> { Key = key, Value = value };
             }
             else
             {
-                var node = this.root;
+                var node = this.Root;
 
                 while (node != null)
                 {
@@ -85,7 +85,7 @@
 
                             return;
                         }
-                        node = left;
+                        node = (AvlNode<TKey, TValue>)left;
                     }
                     else if (compare > 0)
                     {
@@ -99,7 +99,7 @@
 
                             return;
                         }
-                        node = right;
+                        node = (AvlNode<TKey, TValue>)right;
                     }
                     else
                     {
@@ -116,7 +116,7 @@
             throw new NotImplementedException();
         }
 
-        public void InsertBalance(AvlNode<TKey, TValue> node, int balance)
+        public void InsertBalance(IAvlNode<TKey, TValue> node, int balance)
         {
             while (node != null)
             {
@@ -166,17 +166,17 @@
 
         public bool Delete(TKey key)
         {
-            var node = this.root;
+            var node = this.Root;
 
             while (node != null)
             {
                 if (this.comparer.Compare(key, node.Key) < 0)
                 {
-                    node = node.Left;
+                    node = (AvlNode<TKey, TValue>)node.Left;
                 }
                 else if (this.comparer.Compare(key, node.Key) > 0)
                 {
-                    node = node.Right;
+                    node = (AvlNode<TKey, TValue>)node.Right;
                 }
                 else
                 {
@@ -187,9 +187,9 @@
                     {
                         if (right == null)
                         {
-                            if (node == this.root)
+                            if (node == this.Root)
                             {
-                                this.root = null;
+                                this.Root = null;
                             }
                             else
                             {
@@ -239,9 +239,9 @@
                                 left.Parent = successor;
                             }
 
-                            if (node == this.root)
+                            if (node == this.Root)
                             {
-                                this.root = successor;
+                                this.Root = (AvlNode<TKey, TValue>)successor;
                             }
                             else
                             {
@@ -293,9 +293,9 @@
                                 left.Parent = successor;
                             }
 
-                            if (node == this.root)
+                            if (node == this.Root)
                             {
-                                this.root = successor;
+                                this.Root = (AvlNode<TKey, TValue>)successor;
                             }
                             else
                             {
@@ -320,7 +320,7 @@
             return false;
         }
 
-        public void DeleteBalance(AvlNode<TKey, TValue> node, int balance)
+        public void DeleteBalance(IAvlNode<TKey, TValue> node, int balance)
         {
             while (node != null)
             {
@@ -374,7 +374,7 @@
             }
         }
 
-        public AvlNode<TKey, TValue> RotateRight(AvlNode<TKey, TValue> node)
+        public IAvlNode<TKey, TValue> RotateRight(IAvlNode<TKey, TValue> node)
         {
             var left = node.Left;
             var leftRight = left.Right;
@@ -390,9 +390,9 @@
                 leftRight.Parent = node;
             }
 
-            if (node == this.root)
+            if (node == this.Root)
             {
-                this.root = left;
+                this.Root = (AvlNode<TKey, TValue>)left;
             }
             else if (parent.Left == node)
             {
@@ -409,7 +409,7 @@
             return left;
         }
 
-        public AvlNode<TKey, TValue> RotateLeftRight(AvlNode<TKey, TValue> node)
+        public IAvlNode<TKey, TValue> RotateLeftRight(IAvlNode<TKey, TValue> node)
         {
             var left = node.Left;
             var leftRight = left.Right;
@@ -435,9 +435,9 @@
                 leftRightLeft.Parent = left;
             }
 
-            if (node == this.root)
+            if (node == this.Root)
             {
-                this.root = leftRight;
+                this.Root = (AvlNode<TKey, TValue>)leftRight;
             }
             else if (parent.Left == node)
             {
@@ -469,7 +469,7 @@
             return leftRight;
         }
 
-        public AvlNode<TKey, TValue> RotateRightLeft(AvlNode<TKey, TValue> node)
+        public IAvlNode<TKey, TValue> RotateRightLeft(IAvlNode<TKey, TValue> node)
         {
             var right = node.Right;
             var rightLeft = right.Left;
@@ -495,9 +495,9 @@
                 rightLeftRight.Parent = right;
             }
 
-            if (node == this.root)
+            if (node == this.Root)
             {
-                this.root = rightLeft;
+                this.Root = (AvlNode<TKey, TValue>)rightLeft;
             }
             else if (parent.Right == node)
             {
@@ -529,7 +529,7 @@
             return rightLeft;
         }
 
-        public AvlNode<TKey, TValue> RotateLeft(AvlNode<TKey, TValue> node)
+        public IAvlNode<TKey, TValue> RotateLeft(IAvlNode<TKey, TValue> node)
         {
             var right = node.Right;
             var rightLeft = right.Left;
@@ -545,9 +545,9 @@
                 rightLeft.Parent = node;
             }
 
-            if (node == this.root)
+            if (node == this.Root)
             {
-                this.root = right;
+                this.Root = (AvlNode<TKey, TValue>)right;
             }
             else if (parent.Right == node)
             {
@@ -564,7 +564,7 @@
             return right;
         }
 
-        private void Replace(AvlNode<TKey, TValue> target, AvlNode<TKey, TValue> source)
+        private void Replace(IAvlNode<TKey, TValue> target, IAvlNode<TKey, TValue> source)
         {
             var left = source.Left;
             var right = source.Right;

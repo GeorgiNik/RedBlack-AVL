@@ -31,10 +31,10 @@
 
                     while (this.current.Left != null)
                     {
-                        this.current = this.current.Left;
+                        this.current = (AvlNode<TKey, TValue>)this.current.Left;
                     }
 
-                    this.right = this.current.Right;
+                    this.right = (AvlNode<TKey, TValue>)this.current.Right;
 
                     this.action = this.right != null ? Action.Right : Action.Parent;
 
@@ -44,11 +44,11 @@
                     {
                         var previous = this.current;
 
-                        this.current = this.current.Parent;
+                        this.current = (AvlNode<TKey, TValue>)this.current.Parent;
 
                         if (this.current.Left == previous)
                         {
-                            this.right = this.current.Right;
+                            this.right = (AvlNode<TKey, TValue>)this.current.Right;
 
                             this.action = this.right != null ? Action.Right : Action.Parent;
 

@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
 
-    using RedBlackAvl.Common;
     using RedBlackAvl.Implementation.Avl;
+    using RedBlackAvl.Implementation.Contracts;
 
     public class Startup
     {
-        static readonly AvlTree<int, string> avlTree = new AvlTree<int, string>();
+        static readonly IAvlTree<int, string> avlTree = new AvlTree<int, string>();
 
         static void Main()
         {
@@ -35,7 +35,7 @@
 
                 Helpers.Removing(9);
                 avlTree.Delete(9);
-                
+
                 TraverseAvl(avlTree);
                 Search(9);
 
@@ -70,12 +70,12 @@
             }
         }
 
-        private static void TraverseAvl(AvlTree<int, string> avlTree)
+        private static void TraverseAvl(IAvlTree<int, string> avlTree)
         {
             // Depth-first traversal  
 
-            var stack = new Stack<AvlNode<int, string>>();
-            stack.Push(avlTree.root);
+            var stack = new Stack<IAvlNode<int, string>>();
+            stack.Push(avlTree.Root);
             while (stack.Count != 0)
             {
                 var node = stack.Pop();
@@ -99,7 +99,7 @@
             }
         }
 
-        private static void PrintAvlNode(AvlNode<int, string> node, IComparable parentKey)
+        private static void PrintAvlNode(IAvlNode<int, string> node, IComparable parentKey)
         {
             Console.WriteLine(
                 "Key:{0}\t" + "Data:{1}\t" + "Parent Key:{2}\t" + "Balance:{3}",

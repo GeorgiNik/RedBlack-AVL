@@ -42,6 +42,7 @@
     <Compile Include="Avl\AvlNode.cs" />
     <Compile Include="Avl\AvlNodeEnumerator.cs" />
     <Compile Include="Avl\AvlTree.cs" />
+    <Compile Include="Contracts\IAvlNode.cs" />
     <Compile Include="Contracts\IAvlTree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

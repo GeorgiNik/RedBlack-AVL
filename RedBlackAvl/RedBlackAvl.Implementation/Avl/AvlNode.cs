@@ -1,12 +1,14 @@
 ﻿namespace RedBlackAvl.Implementation.Avl
 {
-    public class AvlNode<TKey, TValue>
+    using RedBlackAvl.Implementation.Contracts;
+
+    public class AvlNode<TKey, TValue> : IAvlNode<TKey, TValue>
     {
-        public AvlNode<TKey, TValue> Parent { get; set; }
+        public IAvlNode<TKey, TValue> Parent { get; set; }
 
-        public AvlNode<TKey, TValue> Left { get; set; }
+        public IAvlNode<TKey, TValue> Left { get; set; }
 
-        public AvlNode<TKey, TValue> Right { get; set; }
+        public IAvlNode<TKey, TValue> Right { get; set; }
 
         public TKey Key { get; set; }
 

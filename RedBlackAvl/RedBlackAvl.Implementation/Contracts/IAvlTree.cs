@@ -2,28 +2,28 @@
 {
     using System.Collections.Generic;
 
-    using RedBlackAvl.Implementation.Avl;
-
     public interface IAvlTree<TKey, TValue> : IEnumerable<TValue>
     {
+        IAvlNode<TKey, TValue> Root { get; set; }
+
         bool Search(TKey key, out TValue value);
 
         void Clear();
 
         void Insert(TKey key, TValue value);
 
-        void InsertBalance(AvlNode<TKey, TValue> node, int balance);
+        void InsertBalance(IAvlNode<TKey, TValue> node, int balance);
 
         bool Delete(TKey key);
 
-        void DeleteBalance(AvlNode<TKey, TValue> node, int balance);
+        void DeleteBalance(IAvlNode<TKey, TValue> node, int balance);
 
-        AvlNode<TKey, TValue> RotateRight(AvlNode<TKey, TValue> node);
+        IAvlNode<TKey, TValue> RotateRight(IAvlNode<TKey, TValue> node);
 
-        AvlNode<TKey, TValue> RotateLeftRight(AvlNode<TKey, TValue> node);
+        IAvlNode<TKey, TValue> RotateLeftRight(IAvlNode<TKey, TValue> node);
 
-        AvlNode<TKey, TValue> RotateRightLeft(AvlNode<TKey, TValue> node);
+        IAvlNode<TKey, TValue> RotateRightLeft(IAvlNode<TKey, TValue> node);
 
-        AvlNode<TKey, TValue> RotateLeft(AvlNode<TKey, TValue> node);
+        IAvlNode<TKey, TValue> RotateLeft(IAvlNode<TKey, TValue> node);
     }
 }
