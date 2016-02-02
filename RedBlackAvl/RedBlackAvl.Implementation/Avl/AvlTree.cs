@@ -166,7 +166,158 @@
 
         public bool Delete(TKey key)
         {
-            throw new NotImplementedException();
+            var node = this.root;
+
+            while (node != null)
+            {
+                if (this.comparer.Compare(key, node.Key) < 0)
+                {
+                    node = node.Left;
+                }
+                else if (this.comparer.Compare(key, node.Key) > 0)
+                {
+                    node = node.Right;
+                }
+                else
+                {
+                    var left = node.Left;
+                    var right = node.Right;
+
+                    if (left == null)
+                    {
+                        if (right == null)
+                        {
+                            if (node == this.root)
+                            {
+                                this.root = null;
+                            }
+                            else
+                            {
+                                var parent = node.Parent;
+
+                                if (parent.Left == node)
+                                {
+                                    parent.Left = null;
+
+                                    this.DeleteBalance(parent, -1);
+                                }
+                                else
+                                {
+                                    parent.Right = null;
+
+                                    this.DeleteBalance(parent, 1);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this.Replace(node, right);
+
+                            this.DeleteBalance(node, 0);
+                        }
+                    }
+                    else if (right == null)
+                    {
+                        this.Replace(node, left);
+
+                        this.DeleteBalance(node, 0);
+                    }
+                    else
+                    {
+                        var successor = right;
+
+                        if (successor.Left == null)
+                        {
+                            var parent = node.Parent;
+
+                            successor.Parent = parent;
+                            successor.Left = left;
+                            successor.Balance = node.Balance;
+
+                            if (left != null)
+                            {
+                                left.Parent = successor;
+                            }
+
+                            if (node == this.root)
+                            {
+                                this.root = successor;
+                            }
+                            else
+                            {
+                                if (parent.Left == node)
+                                {
+                                    parent.Left = successor;
+                                }
+                                else
+                                {
+                                    parent.Right = successor;
+                                }
+                            }
+
+                            this.DeleteBalance(successor, 1);
+                        }
+                        else
+                        {
+                            while (successor.Left != null)
+                            {
+                                successor = successor.Left;
+                            }
+
+                            var parent = node.Parent;
+                            var successorParent = successor.Parent;
+                            var successorRight = successor.Right;
+
+                            if (successorParent.Left == successor)
+                            {
+                                successorParent.Left = successorRight;
+                            }
+                            else
+                            {
+                                successorParent.Right = successorRight;
+                            }
+
+                            if (successorRight != null)
+                            {
+                                successorRight.Parent = successorParent;
+                            }
+
+                            successor.Parent = parent;
+                            successor.Left = left;
+                            successor.Balance = node.Balance;
+                            successor.Right = right;
+                            right.Parent = successor;
+
+                            if (left != null)
+                            {
+                                left.Parent = successor;
+                            }
+
+                            if (node == this.root)
+                            {
+                                this.root = successor;
+                            }
+                            else
+                            {
+                                if (parent.Left == node)
+                                {
+                                    parent.Left = successor;
+                                }
+                                else
+                                {
+                                    parent.Right = successor;
+                                }
+                            }
+
+                            this.DeleteBalance(successorParent, -1);
+                        }
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void DeleteBalance(AvlNode<TKey, TValue> node, int balance)
