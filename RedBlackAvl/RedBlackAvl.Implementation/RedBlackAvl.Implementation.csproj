@@ -39,12 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Avl\AvlNode.cs" />
+    <Compile Include="Avl\AvlNodeEnumerator.cs" />
     <Compile Include="Avl\AvlTree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
     <Folder Include="RedBlack\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedBlackAvl.Common\RedBlackAvl.Common.csproj">
+      <Project>{9456ae9e-74d8-4adb-8071-3206240234bd}</Project>
+      <Name>RedBlackAvl.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

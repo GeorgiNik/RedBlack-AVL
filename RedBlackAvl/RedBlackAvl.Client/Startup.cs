@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RedBlackAvl.Client
 {
-    class Program
+    public class Startup
     {
-        static void Main(string[] args)
+        static void Main()
         {
         }
     }
