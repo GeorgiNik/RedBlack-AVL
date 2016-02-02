@@ -113,7 +113,7 @@
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            this.Root = null;
         }
 
         public void InsertBalance(IAvlNode<TKey, TValue> node, int balance)
