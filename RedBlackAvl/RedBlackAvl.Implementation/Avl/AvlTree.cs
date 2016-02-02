@@ -1,14 +1,22 @@
 ﻿namespace RedBlackAvl.Implementation.Avl
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
 
     public class AvlTree<TKey, TValue> : IEnumerable<TValue>
     {
-        public IEnumerator<TValue> GetEnumerator()
+        private IComparer<TKey> comparer;
+
+        private AvlNode<TKey, TValue> root;
+
+        public AvlTree(IComparer<TKey> comparer)
         {
-            throw new NotImplementedException();
+            this.comparer = comparer;
+        }
+
+        public AvlTree()
+            : this(Comparer<TKey>.Default)
+        {
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -16,19 +24,9 @@
             return this.GetEnumerator();
         }
 
-        private class AvlNode
+        public IEnumerator<TValue> GetEnumerator()
         {
-            public AvlNode Parent { get; set; }
-
-            public AvlNode Left { get; set; }
-
-            public AvlNode Right { get; set; }
-
-            public TKey Key { get; set; }
-
-            public TValue Value { get; set; }
-
-            public int Balance { get; set; }
+            return new AvlNodeEnumerator<TKey, TValue>(this.root);
         }
     }
 }
