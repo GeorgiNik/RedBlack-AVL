@@ -322,7 +322,56 @@
 
         public void DeleteBalance(AvlNode<TKey, TValue> node, int balance)
         {
-            throw new NotImplementedException();
+            while (node != null)
+            {
+                balance = (node.Balance += balance);
+
+                if (balance == 2)
+                {
+                    if (node.Left.Balance >= 0)
+                    {
+                        node = this.RotateRight(node);
+
+                        if (node.Balance == -1)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        node = this.RotateLeftRight(node);
+                    }
+                }
+                else if (balance == -2)
+                {
+                    if (node.Right.Balance <= 0)
+                    {
+                        node = this.RotateLeft(node);
+
+                        if (node.Balance == 1)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        node = this.RotateRightLeft(node);
+                    }
+                }
+                else if (balance != 0)
+                {
+                    return;
+                }
+
+                var parent = node.Parent;
+
+                if (parent != null)
+                {
+                    balance = parent.Left == node ? -1 : 1;
+                }
+
+                node = parent;
+            }
         }
 
         public AvlNode<TKey, TValue> RotateRight(AvlNode<TKey, TValue> node)
