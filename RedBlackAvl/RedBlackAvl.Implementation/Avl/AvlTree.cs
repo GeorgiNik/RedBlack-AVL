@@ -471,7 +471,62 @@
 
         public AvlNode<TKey, TValue> RotateRightLeft(AvlNode<TKey, TValue> node)
         {
-            throw new NotImplementedException();
+            var right = node.Right;
+            var rightLeft = right.Left;
+            var parent = node.Parent;
+            var rightLeftLeft = rightLeft.Left;
+            var rightLeftRight = rightLeft.Right;
+
+            rightLeft.Parent = parent;
+            node.Right = rightLeftLeft;
+            right.Left = rightLeftRight;
+            rightLeft.Right = right;
+            rightLeft.Left = node;
+            right.Parent = rightLeft;
+            node.Parent = rightLeft;
+
+            if (rightLeftLeft != null)
+            {
+                rightLeftLeft.Parent = node;
+            }
+
+            if (rightLeftRight != null)
+            {
+                rightLeftRight.Parent = right;
+            }
+
+            if (node == this.root)
+            {
+                this.root = rightLeft;
+            }
+            else if (parent.Right == node)
+            {
+                parent.Right = rightLeft;
+            }
+            else
+            {
+                parent.Left = rightLeft;
+            }
+
+            if (rightLeft.Balance == 1)
+            {
+                node.Balance = 0;
+                right.Balance = -1;
+            }
+            else if (rightLeft.Balance == 0)
+            {
+                node.Balance = 0;
+                right.Balance = 0;
+            }
+            else
+            {
+                node.Balance = 1;
+                right.Balance = 0;
+            }
+
+            rightLeft.Balance = 0;
+
+            return rightLeft;
         }
 
         public AvlNode<TKey, TValue> RotateLeft(AvlNode<TKey, TValue> node)
@@ -479,7 +534,7 @@
             throw new NotImplementedException();
         }
 
-        public void Replace(AvlNode<TKey, TValue> target, AvlNode<TKey, TValue> source)
+        private void Replace(AvlNode<TKey, TValue> target, AvlNode<TKey, TValue> source)
         {
             throw new NotImplementedException();
         }

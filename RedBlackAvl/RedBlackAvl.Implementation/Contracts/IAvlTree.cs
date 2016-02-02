@@ -7,10 +7,9 @@
     public interface IAvlTree<TKey,TValue>:IEnumerable<TValue>
     {
         bool Search(TKey key, out TValue value);
+        void Clear();
 
         void Insert(TKey key, TValue value);
-
-        void Clear();
 
         void InsertBalance(AvlNode<TKey, TValue> node, int balance);
 
@@ -25,7 +24,6 @@
         AvlNode<TKey,TValue> RotateRightLeft(AvlNode<TKey,TValue> node);
 
         AvlNode<TKey, TValue> RotateLeft(AvlNode<TKey, TValue> node);
-
-        void Replace(AvlNode<TKey,TValue> target, AvlNode<TKey,TValue> source);
+        
     }
 }
