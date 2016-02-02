@@ -10,7 +10,7 @@
     {
         private readonly IComparer<TKey> comparer;
 
-        private AvlNode<TKey, TValue> root;
+        public AvlNode<TKey, TValue> root;
 
         public AvlTree(IComparer<TKey> comparer)
         {

@@ -41,11 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedBlackAvl.Common\RedBlackAvl.Common.csproj">
+      <Project>{9456AE9E-74D8-4ADB-8071-3206240234BD}</Project>
+      <Name>RedBlackAvl.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedBlackAvl.Implementation\RedBlackAvl.Implementation.csproj">
+      <Project>{5E6B1A92-8014-46CD-9BD7-D78B9A45027D}</Project>
+      <Name>RedBlackAvl.Implementation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
